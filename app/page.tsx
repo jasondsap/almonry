@@ -1,5 +1,6 @@
 import Reveal from "@/components/Reveal";
 import RequestForm from "@/components/RequestForm";
+import ArchMark from "@/components/ArchMark";
 
 export default function Home() {
   return (
@@ -10,13 +11,7 @@ export default function Home() {
         <div className="wrap">
           <nav>
             <a className="mark" href="#">
-              {/* Ledger Arch: arch formed by two open pages + keystone */}
-              <svg width="36" height="38" viewBox="0 0 36 38" fill="none" aria-hidden="true">
-                <path d="M18 8C13 4 7 4 4 6v26c3-2 9-2 14 2" stroke="#6E2A2A" strokeWidth="2.2" strokeLinejoin="round" />
-                <path d="M18 8c5-4 11-4 14-2v26c-3-2-9-2-14 2" stroke="#A9854B" strokeWidth="2.2" strokeLinejoin="round" />
-                <path d="M18 8v26" stroke="#2B2620" strokeWidth="1.3" opacity=".5" />
-                <circle cx="18" cy="6" r="2.4" fill="#A9854B" />
-              </svg>
+              <ArchMark height={42} />
               <span className="name">Almonry</span>
             </a>
             <div className="links">
@@ -310,11 +305,7 @@ export default function Home() {
         <div className="wrap">
           <div className="foot">
             <a className="mark" href="#">
-              <svg width="30" height="32" viewBox="0 0 36 38" fill="none" aria-hidden="true">
-                <path d="M18 8C13 4 7 4 4 6v26c3-2 9-2 14 2" stroke="#6E2A2A" strokeWidth="2.2" strokeLinejoin="round" />
-                <path d="M18 8c5-4 11-4 14-2v26c-3-2-9-2-14 2" stroke="#A9854B" strokeWidth="2.2" strokeLinejoin="round" />
-                <circle cx="18" cy="6" r="2.4" fill="#A9854B" />
-              </svg>
+              <ArchMark height={36} />
               <span className="name">Almonry</span>
             </a>
             <span className="tag">Where generosity is kept.</span>

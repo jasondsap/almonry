@@ -1,0 +1,52 @@
+/**
+ * The Almonry mark — a stone voussoir arch with two oxblood doors on plinths.
+ * Recreated as vector from the brand logo so it stays crisp from favicon to
+ * social card. Decorative by default (the "Almonry" wordmark sits beside it);
+ * pass a `title` to make it a labelled standalone image.
+ */
+export default function ArchMark({
+  height = 40,
+  title,
+}: {
+  height?: number;
+  title?: string;
+}) {
+  const width = (height * 48) / 54;
+  return (
+    <svg
+      width={width}
+      height={height}
+      viewBox="0 0 48 54"
+      fill="none"
+      role={title ? "img" : undefined}
+      aria-label={title}
+      aria-hidden={title ? undefined : true}
+    >
+      <g fill="#6E2A2A">
+        <path d="M14.5,46 L14.5,30 Q14.5,22 18.75,22 Q23,22 23,30 L23,46 Z" />
+        <path d="M25,46 L25,30 Q25,22 29.25,22 Q33.5,22 33.5,30 L33.5,46 Z" />
+      </g>
+      <g fill="#A9854B">
+        <path d="M13.01,25.35 L7.51,25.18 L7.85,21.65 L13.28,22.52 Z" />
+        <path d="M13.52,21.24 L8.15,20.05 L9.14,16.64 L14.31,18.51 Z" />
+        <path d="M14.79,17.30 L9.74,15.12 L11.35,11.96 L16.08,14.77 Z" />
+        <path d="M16.78,13.67 L12.23,10.58 L14.40,7.78 L18.52,11.42 Z" />
+        <path d="M19.42,10.47 L15.52,6.59 L18.18,4.24 L21.55,8.59 Z" />
+        <path d="M26.45,8.59 L29.82,4.24 L32.48,6.59 L28.58,10.47 Z" />
+        <path d="M29.48,11.42 L33.60,7.78 L35.77,10.58 L31.22,13.67 Z" />
+        <path d="M31.92,14.77 L36.65,11.96 L38.26,15.12 L33.21,17.30 Z" />
+        <path d="M33.69,18.51 L38.86,16.64 L39.85,20.05 L34.48,21.24 Z" />
+        <path d="M34.72,22.52 L40.15,21.65 L40.49,25.18 L34.99,25.35 Z" />
+        <path d="M22.57,7.85 L19.46,3.31 L28.54,3.31 L25.43,7.85 Z" />
+        <path d="M10.25,26.00 h2.75 v6.00 h-2.75 Z" />
+        <path d="M10.25,33.00 h2.75 v6.00 h-2.75 Z" />
+        <path d="M10.25,40.00 h2.75 v6.00 h-2.75 Z" />
+        <path d="M35.00,26.00 h2.75 v6.00 h-2.75 Z" />
+        <path d="M35.00,33.00 h2.75 v6.00 h-2.75 Z" />
+        <path d="M35.00,40.00 h2.75 v6.00 h-2.75 Z" />
+        <path d="M8.75,46 h5.75 v4 h-5.75 Z" />
+        <path d="M33.50,46 h5.75 v4 h-5.75 Z" />
+      </g>
+    </svg>
+  );
+}
