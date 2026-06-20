@@ -4,75 +4,68 @@ import sharp from "../node_modules/sharp/lib/index.js";
 const BRASS = "#A9854B";
 const OX = "#6E2A2A";
 
-const cx = 24, springY = 26, jambBottom = 46;
-const Ri = 22, t = 5.5, Ro = Ri + t; // inner span / thickness
-const apexY = springY - Ri * Math.sin((60 * Math.PI) / 180); // ~7
+// geometry (viewBox 48 x 54)
+const springY = 27, jambBottom = 47;
+const Ri = 18, Ro = 24;            // inner / outer arch radius
+const BL = [15, springY];          // left inner springer  (center of RIGHT arc)
+const BR = [33, springY];          // right inner springer (center of LEFT arc)
 
 const d2r = (d) => (d * Math.PI) / 180;
 const pt = (c, r, deg) => [c[0] + r * Math.cos(d2r(deg)), c[1] + r * Math.sin(d2r(deg))];
-const B = [cx + Ri / 2, springY]; // right inner springer = center of LEFT arc
-const A = [cx - Ri / 2, springY]; // left inner springer  = center of RIGHT arc
 const f = (n) => n.toFixed(2);
+const quad = (p) => `M${f(p[0][0])},${f(p[0][1])} L${f(p[1][0])},${f(p[1][1])} L${f(p[2][0])},${f(p[2][1])} L${f(p[3][0])},${f(p[3][1])} Z`;
 
-// --- voussoir stones around the two arcs ---
-// left arc: center B, deg 180->240 ; right arc: center A, deg -60->0
 const stones = [];
+
+// curved voussoirs, stopping short of the apex to leave room for the keystone
 function arcStones(center, startDeg, endDeg, count, gapDeg) {
   const step = (endDeg - startDeg) / count;
   for (let i = 0; i < count; i++) {
     const a0 = startDeg + i * step + gapDeg / 2;
     const a1 = startDeg + (i + 1) * step - gapDeg / 2;
-    const p1 = pt(center, Ri, a0);
-    const p2 = pt(center, Ro, a0);
-    const p3 = pt(center, Ro, a1);
-    const p4 = pt(center, Ri, a1);
-    stones.push(`M${f(p1[0])},${f(p1[1])} L${f(p2[0])},${f(p2[1])} L${f(p3[0])},${f(p3[1])} L${f(p4[0])},${f(p4[1])} Z`);
+    stones.push(quad([pt(center, Ri, a0), pt(center, Ro, a0), pt(center, Ro, a1), pt(center, Ri, a1)]));
   }
 }
-arcStones(B, 180, 234, 5, 3.4); // left arc, stops short of apex
-arcStones(A, -54, 0, 5, 3.4);   // right arc, stops short of apex
+arcStones(BR, 180, 240, 6, 2.6); // left half (to the apex)
+arcStones(BL, -60, 0, 6, 2.6);   // right half (to the apex)
 
-// keystone: one chunky stone bridging the apex between the two arcs
-(function keystone() {
-  const g = 1.6;
-  const il = pt(B, Ri, 234 + g), ol = pt(B, Ro, 234 + g);
-  const ir = pt(A, Ri, -54 - g), or = pt(A, Ro, -54 - g);
-  stones.push(`M${f(il[0])},${f(il[1])} L${f(ol[0])},${f(ol[1])} L${f(or[0])},${f(or[1])} L${f(ir[0])},${f(ir[1])} Z`);
-})();
+// keystone — a moderately-flared stone seated at the top center
+stones.push(`M20.5,7.5 L27.5,7.5 L25.3,12.8 L22.7,12.8 Z`);
 
-// --- jamb (leg) stones: stacked rectangles below the spring line ---
+// jamb (leg) stones: two per side
 function jamb(xOuter, xInner) {
   const x0 = Math.min(xOuter, xInner), w = Math.abs(xInner - xOuter);
-  const n = 3, gap = 1.0;
-  const total = jambBottom - springY;
-  const h = (total - gap * (n - 1)) / n;
+  const n = 2, gap = 1.0;
+  const h = (jambBottom - springY - gap * (n - 1)) / n;
   for (let i = 0; i < n; i++) {
     const y = springY + i * (h + gap);
     stones.push(`M${f(x0)},${f(y)} h${f(w)} v${f(h)} h${f(-w)} Z`);
   }
 }
-jamb(cx - Ro / 2, cx - Ri / 2); // left leg  (outer 7.5 .. inner 13)
-jamb(cx + Ro / 2, cx + Ri / 2); // right leg (inner 35 .. outer 40.5)
+jamb(9, 15);
+jamb(39, 33);
 
-// --- base plinths (flared brass blocks) ---
+// stepped / molded plinth bases
 const plinths = [
-  `M${f(cx - Ro / 2 - 1.5)},46 h${f(w(cx - Ro / 2, cx - Ri / 2) + 3)} v4 h${f(-(w(cx - Ro / 2, cx - Ri / 2) + 3))} Z`,
-  `M${f(cx + Ri / 2 - 1.5)},46 h${f(w(cx + Ri / 2, cx + Ro / 2) + 3)} v4 h${f(-(w(cx + Ri / 2, cx + Ro / 2) + 3))} Z`,
+  `M8.5,47 h7 v2 h1.5 v3 h-10 v-3 h1.5 Z`,   // left  (riser + wider footing)
+  `M32.5,47 h7 v2 h1.5 v3 h-10 v-3 h1.5 Z`,  // right
 ];
-function w(a, b) { return Math.abs(b - a); }
 
-// --- two oxblood lancet doors with a central pillar gap ---
+// two oxblood doors: outer edge short, curving up to a tall inner edge; a
+// narrow central pillar of background shows between them
 const doors = [
-  `M14.5,46 L14.5,30 Q14.5,22 18.75,22 Q23,22 23,30 L23,46 Z`,
-  `M25,46 L25,30 Q25,22 29.25,22 Q33.5,22 33.5,30 L33.5,46 Z`,
+  `M15.5,47 L15.5,34 Q15.5,26 23,26 L23,47 Z`,
+  `M32.5,47 L32.5,34 Q32.5,26 25,26 L25,47 Z`,
 ];
 
-const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="48" height="54" viewBox="0 0 48 54" fill="none" role="img" aria-label="Almonry">
+const body = `
   <g fill="${OX}">${doors.map((d) => `<path d="${d}"/>`).join("")}</g>
-  <g fill="${BRASS}">${[...stones, ...plinths].map((d) => `<path d="${d}"/>`).join("")}</g>
-</svg>`;
+  <g fill="${BRASS}">${[...stones, ...plinths].map((d) => `<path d="${d}"/>`).join("")}</g>`;
+
+const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="48" height="54" viewBox="0 0 48 54" fill="none">${body}</svg>`;
 
 writeFileSync(new URL("./_arch_gen.svg", import.meta.url), svg);
-await sharp(Buffer.from(svg)).resize(240).png().toFile(new URL("./_arch_240.png", import.meta.url).pathname.slice(1));
-await sharp(Buffer.from(svg)).resize(40).png().toFile(new URL("./_arch_40.png", import.meta.url).pathname.slice(1));
+const out = (p) => new URL(p, import.meta.url).pathname.slice(1);
+await sharp(Buffer.from(svg)).resize(260).png().toFile(out("./_arch_260.png"));
+await sharp(Buffer.from(svg)).resize(40).png().toFile(out("./_arch_40.png"));
 console.log("ok");
