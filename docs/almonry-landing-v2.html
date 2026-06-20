@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Almonry — Where generosity is kept</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Newsreader:ital,opsz@0,6..72;1,6..72&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --parchment:#F2EBDC;
+    --parchment-deep:#E7DDC8;
+    --ink:#2B2620;
+    --ink-soft:#5A5246;
+    --oxblood:#6E2A2A;
+    --oxblood-bright:#8B3A36;
+    --brass:#A9854B;
+    --brass-light:#C8A86A;
+    --forest:#2F4032;
+    --stone:#D9CFB8;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--parchment);color:var(--ink);
+    font-family:'Newsreader',Georgia,serif;font-size:19px;line-height:1.6;
+    -webkit-font-smoothing:antialiased;overflow-x:hidden;
+  }
+  .wrap{max-width:1080px;margin:0 auto;padding:0 32px}
+  body::before{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+    background-image:
+      radial-gradient(circle at 20% 30%, rgba(110,42,42,.025), transparent 40%),
+      radial-gradient(circle at 80% 70%, rgba(47,64,50,.03), transparent 45%);
+    mix-blend-mode:multiply;
+  }
+  .wrap,header,section{position:relative;z-index:1}
+
+  /* nav */
+  header{padding:28px 0 0}
+  nav{display:flex;align-items:center;justify-content:space-between}
+  .mark{display:flex;align-items:center;gap:13px;text-decoration:none;color:var(--ink)}
+  .mark svg{display:block}
+  .mark .name{font-family:'Fraunces',serif;font-weight:600;font-size:25px;letter-spacing:.01em}
+  nav .links{display:flex;gap:34px;align-items:center}
+  nav .links a{font-family:'Inter',sans-serif;font-size:14px;font-weight:500;color:var(--ink-soft);text-decoration:none;letter-spacing:.02em;transition:color .2s}
+  nav .links a:hover{color:var(--oxblood)}
+  .btn{font-family:'Inter',sans-serif;font-weight:600;font-size:14px;letter-spacing:.02em;text-decoration:none;cursor:pointer;border:none;padding:11px 22px;border-radius:2px;transition:all .2s;display:inline-block}
+  .btn-primary{background:var(--oxblood);color:var(--parchment)}
+  .btn-primary:hover{background:var(--oxblood-bright);transform:translateY(-1px)}
+  .btn-ghost{background:transparent;color:var(--ink);border:1px solid rgba(43,38,32,.25)}
+  .btn-ghost:hover{border-color:var(--oxblood);color:var(--oxblood)}
+  @media(max-width:720px){nav .links a:not(.navcta){display:none}}
+
+  /* hero */
+  .hero{padding:76px 0 16px;text-align:center}
+  .eyebrow{font-family:'Inter',sans-serif;font-weight:600;font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--brass);margin-bottom:26px}
+  h1{font-family:'Fraunces',serif;font-weight:400;font-size:clamp(44px,7vw,82px);line-height:1.02;letter-spacing:-.015em;color:var(--ink)}
+  h1 em{font-style:italic;color:var(--oxblood);font-weight:500}
+  /* practical subhead — the "what is this" handle */
+  .subhead{font-family:'Newsreader',serif;font-size:clamp(19px,2.4vw,23px);color:var(--ink);max-width:600px;margin:28px auto 0;line-height:1.5}
+  .subhead b{font-weight:600}
+  .lede{font-family:'Newsreader',serif;font-style:italic;font-size:18px;color:var(--ink-soft);max-width:520px;margin:18px auto 0;line-height:1.5}
+  .hero-cta{margin-top:38px;display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+  .hero-cta .btn{padding:15px 30px;font-size:15px}
+  .hero-note{font-family:'Inter',sans-serif;font-size:13px;color:var(--ink-soft);margin-top:22px;letter-spacing:.01em}
+  .hero-note b{color:var(--oxblood);font-weight:600}
+
+  /* category strip */
+  .cat{margin-top:56px;border-top:1px solid rgba(169,133,75,.3);border-bottom:1px solid rgba(169,133,75,.3);padding:22px 0;background:var(--parchment-deep)}
+  .cat .wrap{display:flex;align-items:center;justify-content:center;gap:18px;flex-wrap:wrap;text-align:center}
+  .cat span{font-family:'Inter',sans-serif;font-size:13px;letter-spacing:.04em;color:var(--ink-soft)}
+  .cat b{font-family:'Fraunces',serif;font-style:normal;font-weight:600;font-size:17px;color:var(--ink);letter-spacing:0}
+  .cat .dot{width:4px;height:4px;border-radius:50%;background:var(--brass)}
+
+  /* origin */
+  .origin{padding:74px 0;background:var(--parchment)}
+  .origin .wrap{max-width:760px;text-align:center}
+  .origin .glyph{font-family:'Fraunces',serif;font-size:40px;color:var(--brass);margin-bottom:8px;line-height:1}
+  .origin .pron{font-family:'Inter',sans-serif;font-size:13px;letter-spacing:.04em;color:var(--ink-soft);margin-bottom:30px}
+  .origin .pron em{font-style:italic}
+  .origin p{font-size:21px;line-height:1.66;color:var(--ink)}
+  .origin .drop::first-letter{font-family:'Fraunces',serif;float:left;font-size:74px;line-height:.78;padding:8px 12px 0 0;color:var(--oxblood);font-weight:500}
+  .origin .drop em{font-style:italic}
+  .origin .turn{font-family:'Fraunces',serif;font-style:italic;font-size:25px;color:var(--oxblood);margin:34px 0;display:block}
+
+  /* pillars */
+  .pillars{padding:84px 0 60px}
+  .section-head{text-align:center;margin-bottom:56px}
+  .section-head .eyebrow{margin-bottom:16px}
+  .section-head h2{font-family:'Fraunces',serif;font-weight:400;font-size:clamp(30px,4vw,42px);letter-spacing:-.01em;color:var(--ink)}
+  .pillar-grid{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid rgba(169,133,75,.3)}
+  .pillar{padding:42px 34px;border-right:1px solid rgba(169,133,75,.3)}
+  .pillar:last-child{border-right:none}
+  .pillar .lbl{font-family:'Inter',sans-serif;font-size:12px;font-weight:600;letter-spacing:.14em;color:var(--brass);text-transform:uppercase}
+  .pillar .ico{margin:20px 0 18px;color:var(--oxblood)}
+  .pillar h3{font-family:'Fraunces',serif;font-weight:500;font-size:25px;color:var(--ink);margin-bottom:12px}
+  .pillar p{font-size:17px;color:var(--ink-soft);line-height:1.55}
+  @media(max-width:720px){.pillar-grid{grid-template-columns:1fr}.pillar{border-right:none;border-bottom:1px solid rgba(169,133,75,.3)}.pillar:last-child{border-bottom:none}}
+
+  /* does */
+  .does{padding:40px 0 80px}
+  .does .wrap{max-width:920px}
+  .does-row{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;padding:44px 0;border-bottom:1px solid rgba(169,133,75,.25)}
+  .does-row:last-child{border-bottom:none}
+  .does-row.flip .copy{order:2}
+  .does-row .copy h3{font-family:'Fraunces',serif;font-weight:500;font-size:28px;color:var(--ink);margin-bottom:14px;line-height:1.1}
+  .does-row .copy p{font-size:17.5px;color:var(--ink-soft)}
+  .does-row .vis{background:var(--parchment-deep);border:1px solid rgba(169,133,75,.35);border-radius:3px;padding:26px;min-height:180px;display:flex;flex-direction:column;justify-content:center}
+  .receipt .rh{display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px dashed rgba(43,38,32,.3);padding-bottom:12px;margin-bottom:14px}
+  .receipt .rh .org{font-family:'Fraunces',serif;font-weight:600;font-size:18px}
+  .receipt .rh .no{font-family:'Inter',sans-serif;font-size:11px;color:var(--ink-soft);letter-spacing:.05em}
+  .receipt .line{display:flex;justify-content:space-between;font-family:'Inter',sans-serif;font-size:13px;padding:5px 0;color:var(--ink-soft)}
+  .receipt .line b{color:var(--ink);font-weight:600}
+  .receipt .amt{font-family:'Fraunces',serif;font-size:30px;color:var(--oxblood);font-weight:600;margin-top:8px}
+  .receipt .seal{font-family:'Inter',sans-serif;font-size:10.5px;letter-spacing:.06em;color:var(--forest);margin-top:14px;display:flex;align-items:center;gap:6px}
+  .ledger .lrow{display:grid;grid-template-columns:1.4fr 1fr auto;gap:10px;font-family:'Inter',sans-serif;font-size:12.5px;padding:9px 0;border-bottom:1px solid rgba(43,38,32,.1);color:var(--ink-soft)}
+  .ledger .lrow.head{color:var(--brass);font-weight:600;letter-spacing:.04em;font-size:10.5px;text-transform:uppercase;border-bottom:1px solid rgba(169,133,75,.4)}
+  .ledger .lrow b{color:var(--ink);font-weight:600}
+  .ledger .tag{font-size:10px;background:rgba(47,64,50,.1);color:var(--forest);padding:2px 7px;border-radius:10px;letter-spacing:.03em}
+  .ledger .tag.lapsed{background:rgba(110,42,42,.1);color:var(--oxblood)}
+  @media(max-width:720px){.does-row{grid-template-columns:1fr;gap:24px}.does-row.flip .copy{order:0}}
+
+  /* who it's for */
+  .forwhom{padding:72px 0;background:var(--parchment-deep);border-top:1px solid rgba(169,133,75,.3);border-bottom:1px solid rgba(169,133,75,.3)}
+  .forwhom .wrap{max-width:880px;text-align:center}
+  .forwhom h2{font-family:'Fraunces',serif;font-weight:400;font-size:clamp(26px,3.4vw,36px);color:var(--ink);letter-spacing:-.01em;line-height:1.18;max-width:680px;margin:14px auto 0}
+  .forwhom .who{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:34px}
+  .forwhom .who span{font-family:'Inter',sans-serif;font-size:14px;color:var(--ink);background:var(--parchment);border:1px solid rgba(169,133,75,.4);padding:9px 18px;border-radius:2px;letter-spacing:.01em}
+  .forwhom .sub{font-size:18px;color:var(--ink-soft);max-width:600px;margin:30px auto 0;line-height:1.55}
+
+  /* pledge */
+  .pledge{background:var(--forest);color:var(--parchment);padding:80px 0;text-align:center}
+  .pledge .eyebrow{color:var(--brass-light)}
+  .pledge h2{font-family:'Fraunces',serif;font-weight:400;font-size:clamp(28px,4vw,40px);line-height:1.15;max-width:720px;margin:14px auto 0;letter-spacing:-.01em}
+  .pledge h2 em{font-style:italic;color:var(--brass-light)}
+  .pledge .sub{font-size:18px;color:rgba(242,235,220,.7);max-width:540px;margin:26px auto 0;line-height:1.55}
+  .pledge .btn{margin-top:38px;padding:15px 32px;font-size:15px}
+  .pledge .btn-primary{background:var(--brass);color:var(--ink)}
+  .pledge .btn-primary:hover{background:var(--brass-light)}
+
+  /* footer */
+  footer{padding:54px 0 40px;border-top:1px solid rgba(169,133,75,.3)}
+  .foot{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px}
+  .foot .tag{font-family:'Newsreader',serif;font-style:italic;font-size:17px;color:var(--ink-soft)}
+  .foot .by{font-family:'Inter',sans-serif;font-size:12.5px;color:var(--ink-soft);letter-spacing:.02em}
+  .foot .by a{color:var(--oxblood);text-decoration:none}
+
+  .reveal{opacity:0;transform:translateY(16px);transition:opacity .7s ease,transform .7s ease}
+  .reveal.in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <nav>
+      <a class="mark" href="#">
+        <!-- Ledger Arch: arch formed by two open pages + keystone -->
+        <svg width="36" height="38" viewBox="0 0 36 38" fill="none" aria-hidden="true">
+          <path d="M18 8C13 4 7 4 4 6v26c3-2 9-2 14 2" stroke="#6E2A2A" stroke-width="2.2" stroke-linejoin="round"/>
+          <path d="M18 8c5-4 11-4 14-2v26c-3-2-9-2-14 2" stroke="#A9854B" stroke-width="2.2" stroke-linejoin="round"/>
+          <path d="M18 8v26" stroke="#2B2620" stroke-width="1.3" opacity=".5"/>
+          <circle cx="18" cy="6" r="2.4" fill="#A9854B"/>
+        </svg>
+        <span class="name">Almonry</span>
+      </a>
+      <div class="links">
+        <a href="#what">What it does</a>
+        <a href="#why">Why Almonry</a>
+        <a href="#story">The name</a>
+        <a class="btn btn-primary navcta" href="#request">Request access</a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap">
+    <div class="reveal in">
+      <p class="eyebrow">Stewardship software</p>
+      <h1>Where generosity<br>is <em>kept</em>.</h1>
+      <p class="subhead"><b>Donor management, online giving, and donor stewardship</b> — built for community nonprofits, not enterprise budgets.</p>
+      <p class="lede">Receive every gift. Remember every donor. Keep faith with both.</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="#request">Request early access</a>
+        <a class="btn btn-ghost" href="#what">See what it does</a>
+      </div>
+      <p class="hero-note">Online giving · Donor records · Automatic receipts · <b>No per-seat fees</b></p>
+    </div>
+  </div>
+</section>
+
+<!-- CATEGORY STRIP -->
+<div class="cat">
+  <div class="wrap">
+    <span>Built for</span>
+    <b>recovery houses</b><span class="dot"></span>
+    <b>foster networks</b><span class="dot"></span>
+    <b>community ministries</b><span class="dot"></span>
+    <b>rescue missions</b><span class="dot"></span>
+    <b>local foundations</b>
+  </div>
+</div>
+
+<!-- ORIGIN -->
+<section class="origin" id="story">
+  <div class="wrap">
+    <div class="glyph reveal">❦</div>
+    <p class="pron reveal">al·mon·ry · <em>the place where gifts were gathered and given</em></p>
+    <p class="drop reveal">Eight hundred years ago, every abbey and great house kept an <em>almonry</em> — the room where gifts were gathered and given to those in need. The person who kept it, the <em>almoner</em>, held a single trust: to receive generosity on behalf of others, record every gift faithfully, and see it reach the people it was meant for.</p>
+    <span class="turn reveal">The tools have changed. The trust hasn't.</span>
+    <p class="reveal">Almonry is that keeping place, rebuilt for the nonprofits doing real work on small budgets — the ones who deserve professional stewardship tools without enterprise complexity.</p>
+  </div>
+</section>
+
+<!-- WHY / PILLARS -->
+<section class="pillars" id="why">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow">The almoner's three duties</p>
+      <h2>Faithful, warm, and within reach.</h2>
+    </div>
+    <div class="pillar-grid reveal">
+      <div class="pillar">
+        <p class="lbl">Faithful</p>
+        <div class="ico"><svg width="30" height="30" viewBox="0 0 24 24" fill="none"><path d="M4 5a2 2 0 012-2h9l5 5v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5z" stroke="currentColor" stroke-width="1.6"/><path d="M8 12l2.5 2.5L16 9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h3>Nothing slips</h3>
+        <p>Gifts log themselves the moment they're given. Receipts go out correct the first time, with the right language and your EIN. The accountability the almoner always owed.</p>
+      </div>
+      <div class="pillar">
+        <p class="lbl">Warm</p>
+        <div class="ico"><svg width="30" height="30" viewBox="0 0 24 24" fill="none"><path d="M12 20s-7-4.35-7-9.5A4.5 4.5 0 0112 7a4.5 4.5 0 017 3.5C19 15.65 12 20 12 20z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></div>
+        <h3>Built around people</h3>
+        <p>Donors are relationships, not rows. See a person's whole history — their gifts, their household, what they care about — and reach them like you actually know them.</p>
+      </div>
+      <div class="pillar">
+        <p class="lbl">Within reach</p>
+        <div class="ico"><svg width="30" height="30" viewBox="0 0 24 24" fill="none"><path d="M12 3l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9 6.7 19.2l1-5.8L3.5 9.2l5.9-.9L12 3z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></div>
+        <h3>Priced for missions</h3>
+        <p>No per-seat tax. No implementation fee. No consultant required to turn it on. The almonry served the community it was part of — not shareholders.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT IT DOES -->
+<section class="does" id="what">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow">What it does</p>
+      <h2>Receive. Record. Renew.</h2>
+    </div>
+
+    <div class="does-row reveal">
+      <div class="copy">
+        <h3>Donations that log themselves</h3>
+        <p>Put a giving page on your site for one-time and monthly gifts. The moment someone gives, the donation is recorded, the donor is matched or created, and a tax receipt is on its way — before you've even refreshed the screen.</p>
+      </div>
+      <div class="vis receipt">
+        <div class="rh"><span class="org">Riverside Recovery</span><span class="no">RR-2026-000412</span></div>
+        <div class="line"><span>Date of gift</span><b>June 19, 2026</b></div>
+        <div class="line"><span>Designation</span><b>Housing Fund</b></div>
+        <div class="line"><span>Type</span><b>Monthly · recurring</b></div>
+        <div class="amt">$50.00</div>
+        <div class="seal"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#2F4032" stroke-width="1.8"/><path d="M8 12l2.5 2.5L16 9" stroke="#2F4032" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>RECEIPT SENT · IRS-COMPLIANT</div>
+      </div>
+    </div>
+
+    <div class="does-row flip reveal">
+      <div class="copy">
+        <h3>A ledger that knows who's slipping away</h3>
+        <p>Every donor, every gift, every household and pledge in one place. Almonry surfaces the donors who gave last year but not this one — the lapse reports fundraisers live by — so you can reach them before they're gone for good.</p>
+      </div>
+      <div class="vis ledger">
+        <div class="lrow head"><span>Donor</span><span>Last gift</span><span>Status</span></div>
+        <div class="lrow"><b>Margaret Ellison</b><span>This year</span><span class="tag">Active</span></div>
+        <div class="lrow"><b>The Cordell Fund</b><span>This year</span><span class="tag">Active</span></div>
+        <div class="lrow"><b>James &amp; Ruth Park</b><span>Last year</span><span class="tag lapsed">Lapsed</span></div>
+        <div class="lrow"><b>Hillside Church</b><span>Last year</span><span class="tag lapsed">Lapsed</span></div>
+      </div>
+    </div>
+
+    <div class="does-row reveal">
+      <div class="copy">
+        <h3>Campaigns you can actually watch come together</h3>
+        <p>Set a goal, point gifts at the right fund and appeal, and see the total climb in real time. The structure underneath is the same one the big platforms use — funds, campaigns, appeals — without the price tag or the training manual.</p>
+      </div>
+      <div class="vis">
+        <div style="font-family:'Inter',sans-serif;font-size:12px;letter-spacing:.05em;color:var(--brass);font-weight:600;text-transform:uppercase">Winter Shelter Drive</div>
+        <div style="font-family:'Fraunces',serif;font-size:34px;color:var(--ink);margin:6px 0 2px">$31,800 <span style="font-size:16px;color:var(--ink-soft)">of $40,000</span></div>
+        <div style="height:11px;background:rgba(43,38,32,.12);border-radius:6px;overflow:hidden;margin-top:14px"><div style="width:79.5%;height:100%;background:linear-gradient(90deg,#6E2A2A,#A9854B)"></div></div>
+        <div style="font-family:'Inter',sans-serif;font-size:12px;color:var(--ink-soft);margin-top:10px;display:flex;justify-content:space-between"><span>248 donors</span><span>79% to goal · 12 days left</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHO IT'S FOR -->
+<section class="forwhom">
+  <div class="wrap">
+    <p class="eyebrow" style="color:var(--brass)">Who it's for</p>
+    <h2>If you're running a real mission on a small budget, this was built for you.</h2>
+    <div class="who">
+      <span>Recovery organizations</span>
+      <span>Foster &amp; family services</span>
+      <span>Community ministries</span>
+      <span>Rescue missions</span>
+      <span>Reentry programs</span>
+      <span>Community action agencies</span>
+      <span>Local foundations</span>
+      <span>Volunteer organizations</span>
+    </div>
+    <p class="sub">Most of them aren't shopping enterprise software. They're on spreadsheets, QuickBooks, or nothing at all — doing heroic work without the tools to steward the people who fund it. Almonry is for them.</p>
+  </div>
+</section>
+
+<!-- PLEDGE -->
+<section class="pledge" id="request">
+  <div class="wrap">
+    <p class="eyebrow">Why we built it</p>
+    <h2>Professional donor stewardship shouldn't be a privilege of the <em>well-funded</em>.</h2>
+    <p class="sub">Generosity in. Stewardship kept. Mission funded. That's the whole job — and now it's within reach.</p>
+    <a class="btn btn-primary" href="#">Request early access</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <a class="mark" href="#">
+        <svg width="30" height="32" viewBox="0 0 36 38" fill="none" aria-hidden="true">
+          <path d="M18 8C13 4 7 4 4 6v26c3-2 9-2 14 2" stroke="#6E2A2A" stroke-width="2.2" stroke-linejoin="round"/>
+          <path d="M18 8c5-4 11-4 14-2v26c-3-2-9-2-14 2" stroke="#A9854B" stroke-width="2.2" stroke-linejoin="round"/>
+          <circle cx="18" cy="6" r="2.4" fill="#A9854B"/>
+        </svg>
+        <span class="name" style="font-size:21px">Almonry</span>
+      </a>
+      <span class="tag">Where generosity is kept.</span>
+      <span class="by">A product of <a href="#">MADe180 Digital Solutions</a> · almonry.app</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.14});
+  document.querySelectorAll('.reveal:not(.in)').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
