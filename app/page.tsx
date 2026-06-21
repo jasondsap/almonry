@@ -38,8 +38,8 @@ export default function Home() {
                 is <em>kept</em>.
               </h1>
               <p className="subhead">
-                <b>Donor management, online giving, and donor stewardship</b> — built for
-                community nonprofits, not enterprise budgets.
+                <b>Donor management, online giving, fundraising pages, and donor outreach</b> —
+                built for community nonprofits, not enterprise budgets.
               </p>
               <p className="lede">
                 Receive every gift. Remember every donor. Keep faith with both.
@@ -53,7 +53,7 @@ export default function Home() {
                 </a>
               </div>
               <p className="hero-note">
-                Online giving · Donor records · Automatic receipts · <b>No per-seat fees</b>
+                Online giving · Fundraising pages &amp; events · Email, text &amp; mail outreach · <b>No per-seat fees</b>
               </p>
             </div>
           </div>
@@ -132,7 +132,7 @@ export default function Home() {
                 <p>
                   Donors are relationships, not rows. See a person&apos;s whole history — their
                   gifts, their household, what they care about — and reach them like you
-                  actually know them.
+                  actually know them, by email, text, or a letter in the mail.
                 </p>
               </div>
               <div className="pillar">
@@ -258,6 +258,122 @@ export default function Home() {
                 </div>
               </div>
             </div>
+
+            <div className="does-row flip reveal">
+              <div className="copy">
+                <h3>Keep up the correspondence</h3>
+                <p>
+                  Reach donors by email, text, or a printed letter — from one place. Choose who
+                  hears from you, drop in their name and the details that matter, and send.
+                  Unsubscribes and consent are handled for you.
+                </p>
+              </div>
+              <div className="vis msg">
+                <div className="msg-head">
+                  <span>To · Lapsed donors</span>
+                  <span className="msg-count">128</span>
+                </div>
+                <div className="msg-subject">“We saved your seat at the table”</div>
+                <div className="chiprow">
+                  <span className="chip">Email</span>
+                  <span className="chip">Text</span>
+                  <span className="chip">Mail</span>
+                </div>
+                <div className="msg-stat">
+                  <b>61%</b> opened · <b>18</b> gave back
+                </div>
+              </div>
+            </div>
+
+            <div className="does-row reveal">
+              <div className="copy">
+                <h3>A page for every appeal</h3>
+                <p>
+                  Spin up a donation form or a fundraising page in minutes. Sell event tickets,
+                  let supporters raise money for you peer-to-peer, or run an online auction — all
+                  feeding the same donor records and goal bars.
+                </p>
+              </div>
+              <div className="vis">
+                <div className="campaign-label">Spring Gala &amp; Auction</div>
+                <div className="campaign-amt">
+                  $18,250 <span>of $25,000</span>
+                </div>
+                <div className="campaign-bar">
+                  <div className="campaign-bar-fill" style={{ width: "73%" }}></div>
+                </div>
+                <div className="chiprow">
+                  <span className="chip">🎟 Tickets</span>
+                  <span className="chip">🤝 Peer-to-peer</span>
+                  <span className="chip">🔨 Auction</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="does-row flip reveal">
+              <div className="copy">
+                <h3>Ask your data a question</h3>
+                <p>
+                  Dori, the built-in assistant, answers in plain English — “who gave last year
+                  but not this one?” — and drafts warm, specific thank-yous you can send in a
+                  click. The reports a fundraiser lives by, without the spreadsheet.
+                </p>
+              </div>
+              <div className="vis assistant">
+                <div className="ask">Who gave last year but not this year?</div>
+                <div className="answer">
+                  42 donors lapsed — $11,400 in prior gifts. Want me to draft a thank-back?
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* EVERYTHING IN ONE PLACE */}
+        <section className="features" id="features">
+          <div className="wrap">
+            <div className="section-head reveal">
+              <p className="eyebrow">Everything in one place</p>
+              <h2>One keeping place for the whole job.</h2>
+            </div>
+            <div className="feature-grid reveal">
+              <div className="feature-col">
+                <h4>Give</h4>
+                <ul>
+                  <li>One-time &amp; monthly</li>
+                  <li>Pledges</li>
+                  <li>Tributes (in honor / memory)</li>
+                  <li>Matching-gift capture</li>
+                  <li>Cover-the-fees option</li>
+                </ul>
+              </div>
+              <div className="feature-col">
+                <h4>Steward</h4>
+                <ul>
+                  <li>Donor records &amp; households</li>
+                  <li>Soft credits</li>
+                  <li>Funds, campaigns &amp; appeals</li>
+                  <li>Lapse (LYBUNT / SYBUNT) reports</li>
+                </ul>
+              </div>
+              <div className="feature-col">
+                <h4>Receipt &amp; report</h4>
+                <ul>
+                  <li>Instant tax receipts</li>
+                  <li>Year-end giving statements</li>
+                  <li>QuickBooks export</li>
+                </ul>
+              </div>
+              <div className="feature-col">
+                <h4>Reach &amp; raise</h4>
+                <ul>
+                  <li>Email, text &amp; mail outreach</li>
+                  <li>Pages, events &amp; peer-to-peer</li>
+                  <li>Online auctions</li>
+                  <li>The Dori assistant</li>
+                </ul>
+              </div>
+            </div>
           </div>
         </section>
 
@@ -280,6 +396,19 @@ export default function Home() {
               Most of them aren&apos;t shopping enterprise software. They&apos;re on
               spreadsheets, QuickBooks, or nothing at all — doing heroic work without the tools
               to steward the people who fund it. Almonry is for them.
+            </p>
+          </div>
+        </section>
+
+        {/* YOUR BRAND */}
+        <section className="brandband">
+          <div className="wrap reveal">
+            <p className="eyebrow">Your brand, not ours</p>
+            <h2>Donors give to you — so your name is the one they see.</h2>
+            <p>
+              Add your logo and colors once. Your giving pages and tax receipts wear your
+              organization&apos;s identity, not a software vendor&apos;s. Almonry stays quietly
+              in the background, keeping the books.
             </p>
           </div>
         </section>
