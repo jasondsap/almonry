@@ -62,16 +62,12 @@ export default function Home() {
         {/* CATEGORY STRIP */}
         <div className="cat">
           <div className="wrap">
-            <span>Built for</span>
-            <b>recovery houses</b>
-            <span className="dot"></span>
-            <b>foster networks</b>
-            <span className="dot"></span>
-            <b>community ministries</b>
-            <span className="dot"></span>
-            <b>rescue missions</b>
-            <span className="dot"></span>
-            <b>local foundations</b>
+            <p className="cat-statement">
+              For nonprofits that would rather fund their mission than their software.
+            </p>
+            <p className="cat-sub">
+              Online giving · Donor management · Campaigns · Donor outreach
+            </p>
           </div>
         </div>
 
@@ -383,14 +379,13 @@ export default function Home() {
             <p className="eyebrow eyebrow-who">Who it&apos;s for</p>
             <h2>If you&apos;re running a real mission on a small budget, this was built for you.</h2>
             <div className="who">
-              <span>Recovery organizations</span>
-              <span>Foster &amp; family services</span>
-              <span>Community ministries</span>
-              <span>Rescue missions</span>
-              <span>Reentry programs</span>
-              <span>Community action agencies</span>
+              <span>Community nonprofits</span>
               <span>Local foundations</span>
-              <span>Volunteer organizations</span>
+              <span>Ministries</span>
+              <span>Schools</span>
+              <span>Shelters</span>
+              <span>Associations</span>
+              <span>Recovery organizations</span>
             </div>
             <p className="sub">
               Most of them aren&apos;t shopping enterprise software. They&apos;re on
